@@ -47,10 +47,9 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.10
   flutter_lints: ^2.0.0
-#
-#flutter_native_splash:
-#    color: "0xFF000000"
-#    image: "assets/images/splash.jpg"
+
+flutter_native_splash:
+    background_image: "assets/images/splash.png"
 
 flutter_icons:
     android: true
