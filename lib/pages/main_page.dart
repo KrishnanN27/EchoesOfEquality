@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/mentee_questions.dart';
 import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
 import 'package:echoes_of_equality/components/square_tile.dart';
@@ -6,12 +7,12 @@ import 'package:lottie/lottie.dart';
 
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      // ... Existing configurations
       body: SafeArea(
         child: Center(
           child: Column(
@@ -33,12 +34,22 @@ class MainPage extends StatelessWidget {
               const SizedBox(height: 50),
 
               // welcome back, you've been missed!
-              Text(
-                'Welcome!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 26,
-                  fontFamily: 'Poppins',
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Mentee_Questions(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Welcome!',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 26,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
               ),
 
@@ -73,7 +84,7 @@ class MainPage extends StatelessWidget {
           ),
         ),
       ),
-    );;
+    );
   }
 }
 

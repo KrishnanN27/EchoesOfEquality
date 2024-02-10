@@ -1,0 +1,12 @@
+com.example.echoes_of_equality.app-jetified-annotation-experimental-1.1.0-0 C:\Users\Tanmay\.gradle\caches\transforms-3\02315cc9f75263553d2042718fc375ee\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.echoes_of_equality.app-jetified-window-1.0.0-beta04-1 C:\Users\Tanmay\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\res
+com.example.echoes_of_equality.app-jetified-window-java-1.0.0-beta04-2 C:\Users\Tanmay\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.echoes_of_equality.app-core-1.6.0-3 C:\Users\Tanmay\.gradle\caches\transforms-3\d08c73bfb05384f2e52578171dbd141e\transformed\core-1.6.0\res
+com.example.echoes_of_equality.app-debug-4 C:\Users\Tanmay\Hackathon\EchoesOfEquality\android\app\src\debug\res
+com.example.echoes_of_equality.app-main-5 C:\Users\Tanmay\Hackathon\EchoesOfEquality\android\app\src\main\res
+com.example.echoes_of_equality.app-pngs-6 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\generated\res\pngs\debug
+com.example.echoes_of_equality.app-resValues-7 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\generated\res\resValues\debug
+com.example.echoes_of_equality.app-rs-8 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\generated\res\rs\debug
+com.example.echoes_of_equality.app-mergeDebugResources-9 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.echoes_of_equality.app-mergeDebugResources-10 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.echoes_of_equality.app-merged_res-11 C:\Users\Tanmay\Hackathon\EchoesOfEquality\build\app\intermediates\merged_res\debug

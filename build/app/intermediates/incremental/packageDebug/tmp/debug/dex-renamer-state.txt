@@ -1,0 +1,4 @@
+#Fri Feb 09 23:38:51 MST 2024
+base.0=C\:\\Users\\Tanmay\\Hackathon\\EchoesOfEquality\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
