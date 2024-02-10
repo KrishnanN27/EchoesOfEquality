@@ -1,4 +1,10 @@
+
+import 'package:conditional_questions/conditional_questions.dart';
+import 'package:echoes_of_equality/firebase_options.dart';
+import 'package:echoes_of_equality/pages/login_pages/auth_gate.dart';
+import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +24,7 @@ bool showHome = true;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await Firebase.initializeApp(
   //   options: const FirebaseOptions(
   //     apiKey: "YOUR_API_KEY",
@@ -29,7 +36,9 @@ void main() async {
   // );
   final prefs = await SharedPreferences.getInstance();
   bool showHome = prefs.getBool('showHome') ?? true;
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(create: (context)=> AuthService(),
+  child: MyApp(),)
+  );
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -38,7 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: showHome? const OnBoardingScreen() : const SignInScreen(),
+      home: showHome? const OnBoardingScreen() : const AuthGate(),
     );
   }
 }

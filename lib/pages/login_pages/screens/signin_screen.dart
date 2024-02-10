@@ -1,5 +1,9 @@
+import 'package:conditional_questions/conditional_questions.dart';
+import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/reset_password.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/signup_screen.dart';
+import 'package:echoes_of_equality/pages/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +21,17 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  void signIn() async{
+    final authService= Provider.of<AuthService>(context,listen: false);
+
+    try{
+      await authService.signInWithEmailandPassword(_emailTextController.text, _passwordTextController.text,);
+    }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar((SnackBar(content: Text(e.toString(),),)));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,18 +65,20 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 5,
                 ),
                 forgetPassword(context),
-                // firebaseUIButton(context, "Sign In", () {
-                //   // FirebaseAuth.instance
-                //   //     .signInWithEmailAndPassword(
-                //   //         email: _emailTextController.text,
-                //   //         password: _passwordTextController.text)
-                //   //     .then((value) {
-                //   //   Navigator.push(context,
-                //   //       MaterialPageRoute(builder: (context) => HomeScreen()));
-                //   // }).onError((error, stackTrace) {
-                //   //   print("Error ${error.toString()}");
-                //   // });
-                // }),
+                firebaseUIButton(context, "Sign In", () {
+
+
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text)
+                      .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainPage()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
+                }),
                 signUpOption()
               ],
             ),

@@ -1,6 +1,8 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/color_utils.dart';
 import '../reusable_widgets/reusable_widget.dart';
@@ -15,10 +17,27 @@ class SignUpScreen extends StatefulWidget {
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
+
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+
+
+  void signUp() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.signUpWithEmailandPassword(
+        _emailTextController.text.toString(),
+        _passwordTextController.text.toString(), // Access the text property here
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,10 +83,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     firebaseUIButton(context, "Sign Up", () {
+
+                      signUp();
+
                       // FirebaseAuth.instance
                       //     .createUserWithEmailAndPassword(
                       //     email: _emailTextController.text,
-                      //     password: _passwordTextController.text)
+                      //     password: _passwordTextControl
                       //     .then((value) {
                       //   print("Created New Account");
                       //   Navigator.push(context,
