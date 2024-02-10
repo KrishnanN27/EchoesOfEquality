@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="echoes_of_equality"
+        android:label="Echoes of Equality"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
