@@ -1,11 +1,12 @@
 
-import 'package:conditional_questions/conditional_questions.dart';
 import 'package:echoes_of_equality/firebase_options.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_gate.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:echoes_of_equality/pages/onboarding_screen.dart';
+import 'provider'
 bool showHome = true;
 
 void main() async {
