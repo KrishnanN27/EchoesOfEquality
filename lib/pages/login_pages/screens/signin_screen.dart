@@ -3,7 +3,7 @@ import 'package:echoes_of_equality/pages/login_pages/screens/signup_screen.dart'
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 import '../../../components/color_utils.dart';
 import '../reusable_widgets/reusable_widget.dart';
@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo1.png"),
+                logoWidget("assets/images/lgbt.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -52,18 +52,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 5,
                 ),
                 forgetPassword(context),
-                firebaseUIButton(context, "Sign In", () {
-                  // FirebaseAuth.instance
-                  //     .signInWithEmailAndPassword(
-                  //         email: _emailTextController.text,
-                  //         password: _passwordTextController.text)
-                  //     .then((value) {
-                  //   Navigator.push(context,
-                  //       MaterialPageRoute(builder: (context) => HomeScreen()));
-                  // }).onError((error, stackTrace) {
-                  //   print("Error ${error.toString()}");
-                  // });
-                }),
+                // firebaseUIButton(context, "Sign In", () {
+                //   // FirebaseAuth.instance
+                //   //     .signInWithEmailAndPassword(
+                //   //         email: _emailTextController.text,
+                //   //         password: _passwordTextController.text)
+                //   //     .then((value) {
+                //   //   Navigator.push(context,
+                //   //       MaterialPageRoute(builder: (context) => HomeScreen()));
+                //   // }).onError((error, stackTrace) {
+                //   //   print("Error ${error.toString()}");
+                //   // });
+                // }),
                 signUpOption()
               ],
             ),
@@ -82,12 +82,12 @@ class _SignInScreenState extends State<SignInScreen> {
         GestureDetector(
           onTap: () {
 
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => SignUpScreen(firebaseOptions: Firebase.app().options), // Provide FirebaseOptions here
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignUpScreen(), // Provide FirebaseOptions here
+              ),
+            );
 
           },
           child: const Text(

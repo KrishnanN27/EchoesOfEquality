@@ -1,7 +1,7 @@
 import 'package:conditional_questions/conditional_questions.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:echoes_of_equality/questionairre_source/source.dart';
 
 
@@ -18,8 +18,8 @@ class _MyWidgetState extends State<Questionairre> {
   @override
   void initState() {
     super.initState();
-    _firestream =
-        FirebaseFirestore.instance.collection('sample').doc('id_1234').get();
+    // _firestream =
+    //     FirebaseFirestore.instance.collection('sample').doc('id_1234').get();
   }
   @override
 Widget build(BuildContext context) {
@@ -27,36 +27,51 @@ Widget build(BuildContext context) {
       appBar: AppBar(
         title: Text("Mentee Questionairre"),
       ),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: _firestream,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-
-          return ConditionalQuestions(
-            key: _key,
-            children: questions(),
-            value: snapshot.data!.data(),
-            trailing: [
-              MaterialButton(
-                color: Colors.deepOrange,
-                splashColor: Colors.orangeAccent,
-                onPressed: () async {
-                  if (_key.currentState!.validate()) {
-                    print("validated!");
-                    FirebaseFirestore.instance
-                        .collection('sample')
-                        .doc('id_1234')
-                        .set(_key.currentState!.toMap());
-                  }
-                },
-                child: Text("Submit"),
-              )
-            ],
-            leading: [Text("TITLE")],
-          );
-        },
+      body:Center(
+        child: ElevatedButton(
+          child: Text("Logout"),
+          onPressed: () {
+            // FirebaseAuth.instance.signOut().then((value) {
+            //   print("Signed Out");
+            //   Navigator.push(context,
+            //       MaterialPageRoute(builder: (context) => SignInScreen()));
+            // });
+          },
+        ),
       ),
+      
+      
+      
+      // FutureBuilder<DocumentSnapshot>(
+      //   //future: _firestream,
+      //   builder: (context, snapshot) {
+      //     if (!snapshot.hasData)
+      //       return Center(child: CircularProgressIndicator());
+
+      //     return ConditionalQuestions(
+      //       key: _key,
+      //       children: questions(),
+      //       value: snapshot.data!.data(),
+      //       trailing: [
+      //         MaterialButton(
+      //           color: Colors.deepOrange,
+      //           splashColor: Colors.orangeAccent,
+      //           onPressed: () async {
+      //             if (_key.currentState!.validate()) {
+      //               print("validated!");
+      //               // FirebaseFirestore.instance
+      //               //     .collection('sample')
+      //               //     .doc('id_1234')
+      //               //     .set(_key.currentState!.toMap());
+      //             }
+      //           },
+      //           child: Text("Submit"),
+      //         )
+      //       ],
+      //       leading: [Text("TITLE")],
+      //     );
+      //   },
+      // ),
     );
   }
 }
