@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 
 
 
-
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 

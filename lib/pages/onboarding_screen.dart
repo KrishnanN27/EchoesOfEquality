@@ -3,6 +3,7 @@ import 'package:echoes_of_equality/pages/intro_screens/intro_page1.dart';
 import 'package:echoes_of_equality/pages/intro_screens/intro_page2.dart';
 import 'package:echoes_of_equality/pages/intro_screens/intro_page3.dart';
 import 'package:echoes_of_equality/pages/login_page.dart';
+import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -55,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setBool('showHome', false);
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return LoginPage();
+                          return SignInScreen();
                         }));
                     },
 
