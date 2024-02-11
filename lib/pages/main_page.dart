@@ -12,8 +12,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-bool flag = false;
+import 'Mentor_Resources/Mentor_main.dart';
 
+bool flag = false;
+var firestore = FirebaseFirestore.instance;
+String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
@@ -39,8 +42,7 @@ class MainPage extends StatelessWidget {
 
       'Mentor': flag,
     };
-    var firestore = FirebaseFirestore.instance;
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     await firestore.collection("Role Flag").doc(userId).set(responses);
 }
 
@@ -89,11 +91,16 @@ class MainPage extends StatelessWidget {
                 SizedBox(height: size.height * 0.03), // Responsive spacing
 
                 MyButton(
-                  onTap: () {
+                  onTap: () async {
+                    DocumentSnapshot roleFlagSnapshot = await FirebaseFirestore.instance.collection('Role Flag').doc(userId).get();
+                    if (roleFlagSnapshot.exists && (roleFlagSnapshot.data() as Map<String, dynamic>)['Mentor'] == true) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
+                    } else {
+
                     flag = true;
                     roleflag();
                     Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionnaireScreenMentor()));
-                  },
+                    }},
                   buttonText: 'Mentor',
                 ),
 

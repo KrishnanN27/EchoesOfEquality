@@ -4,14 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'main_page.dart';
 
-class MentorResources extends StatefulWidget {
-  const MentorResources({Key? key}) : super(key: key);
+class MyMentees extends StatefulWidget {
+  const MyMentees({Key? key}) : super(key: key);
 
   @override
-  State<MentorResources> createState() => _MentorResourcesState();
+  State<MyMentees> createState() => _MyMenteesState();
 }
 
-class _MentorResourcesState extends State<MentorResources> {
+class _MyMenteesState extends State<MyMentees> {
   List<Map<String, dynamic>> myMatches = [];
 
   @override
@@ -19,37 +19,25 @@ class _MentorResourcesState extends State<MentorResources> {
     super.initState();
     fetchMatches(); // Fetch matches when the widget is initialized
   }
-  Future<void> _acceptMatch(String matchId) async {
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
-    await firestore.collection("Matches_$userId").doc(matchId).set({"isMatch": "no","oldMatch": "yes"});
-    await firestore.collection("Mentees_$userId").doc(matchId).set({"matchId":matchId});
-
-    // Perform actions when the match is accepted
-
-    print('Match accepted with ID: $matchId');
-    // Add your logic here
-  }
   void fetchMatches() async {
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    CollectionReference matchCollection = FirebaseFirestore.instance.collection("Matches_$userId");
+    CollectionReference matchCollection = FirebaseFirestore.instance.collection("Mentees_$userId");
 
     try {
-      print("Fetching match collection...");
+      print("Fetching mentees collection...");
       QuerySnapshot matchSnapshot = await matchCollection.get();
 
       List<String> matches = matchSnapshot.docs
-          .where((doc) => ((doc.data() as Map<String, dynamic>?)?["isMatch"] == "yes") &&
-          ((doc.data() as Map<String, dynamic>?)?["oldMatch"] != "yes"))
           .map((doc) => doc.id)
           .toList();
 
-      print("Match collection size: ${matches.length}");
+      print("Mentee collection size: ${matches.length}");
 
       List<Map<String, dynamic>> matchDetails = [];
 
       for (String matchId in matches) {
-        print("Fetching details for match with ID: $matchId");
+        print("Fetching details for mentee with ID: $matchId");
         DocumentSnapshot matchDocument = await FirebaseFirestore.instance.collection("mentee_Q").doc(matchId).get();
         Map<String, dynamic>? matchData = matchDocument.data() as Map<String, dynamic>?; // Nullable map
         if (matchData != null) { // Check if matchData is not null
@@ -72,7 +60,7 @@ class _MentorResourcesState extends State<MentorResources> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Mentor Resources',
+          'My Mentees',
           style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -92,7 +80,7 @@ class _MentorResourcesState extends State<MentorResources> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    title: Text('Match ID: ${matchDetails["userId"]}'),
+                    title: Text('Mentee ID: ${matchDetails["userId"]}'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -111,9 +99,11 @@ class _MentorResourcesState extends State<MentorResources> {
                       child: ElevatedButton(
                         onPressed: () {
                           // Implement accept functionality
-                          _acceptMatch(matchDetails["userId"]);
+
+                          // CHAT!!!!!
+
                         },
-                        child: Text('Accept'),
+                        child: Text('Chat with Mentee'),
                       ),
                     ),
                   ),

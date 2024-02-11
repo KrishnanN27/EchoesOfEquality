@@ -21,10 +21,12 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
     _issuesDescriptionController.dispose();
     super.dispose();
   }
-
+  var firestore = FirebaseFirestore.instance;
+  //await firestore.collection('mentee_Q').add(responses);
+  String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
   void _submit() async {
     final responses = {
-
+      'userId': userId,
       'lgbtqiaPlusMember': _lgbtqiaPlusMember,
       'assistanceType': _assistanceType,
       'previousAssistance': _previousAssistance,
@@ -33,9 +35,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
     };
     // Here, you would typically send the collected data to your backend or Firebase.
     //print('Collected Responses: $responses');
-    var firestore = FirebaseFirestore.instance;
-    //await firestore.collection('mentee_Q').add(responses);
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     await firestore.collection("mentor_Q").doc(userId).set(responses);
     Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
 
