@@ -1,15 +1,12 @@
 
 import 'package:conditional_questions/conditional_questions.dart';
 import 'package:echoes_of_equality/components/navigation_drawer_for_car_loan.dart';
-import 'package:echoes_of_equality/pages/login_page.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
 import 'package:echoes_of_equality/pages/mentee_main_page.dart';
 import 'package:echoes_of_equality/pages/questionairre_source/mentor_q.dart';
-import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -29,8 +26,8 @@ class MainPage extends StatelessWidget {
 
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Signed out, bitches!"),
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Signed out successfully!"),
     ));
 
   }
@@ -52,11 +49,10 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[300],
       ),
 
-      endDrawer:  NavigationDrawerForCarLoan(signOut: () => signOut(context)),
+        endDrawer: NavigationDrawerForCarLoan(signOut: () => signOut(context)),
 
       backgroundColor: Colors.grey[300],
       body: SafeArea(
