@@ -51,12 +51,12 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
       ),
 
         endDrawer: NavigationDrawerForCarLoan(signOut: () => signOut(context)),
 
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView( // Wrap with SingleChildScrollView for scrollable behavior
           child: Center(

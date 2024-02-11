@@ -1,71 +1,41 @@
-
 import 'package:echoes_of_equality/pages/login_pages/screens/reset_password.dart';
 import 'package:echoes_of_equality/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
-
 class NavigationDrawerForCarLoan extends StatelessWidget {
-  final padding = EdgeInsets.symmetric(horizontal: 20,vertical: 25);
+  final EdgeInsets padding = EdgeInsets.symmetric(horizontal: 20, vertical: 25);
   final VoidCallback signOut;
 
-
   NavigationDrawerForCarLoan({required this.signOut});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-        color: Colors.grey[900],
+        color: Colors.grey[400], // Drawer background color
         child: ListView(
           children: <Widget>[
             Container(
               padding: padding,
               child: Column(
                 children: [
-                  // const SizedBox(height: 12),
-                  // buildSearchField(),
                   const SizedBox(height: 34),
                   buildMenuItem(
                     text: 'Home',
                     icon: Icons.home,
                     onClicked: () => selectedItem(context, 0),
                   ),
-                  Divider(color: Colors.white70,thickness: 2,),
+                  Divider(color: Colors.white70, thickness: 2),
                   const SizedBox(height: 24),
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout_outlined,
                     onClicked: () => selectedItem(context, 1),
                   ),
-
                 ],
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-
-  Widget buildSearchField() {
-    final color = Colors.white;
-
-    return TextField(
-      style: TextStyle(color: color),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        hintText: 'Search',
-        hintStyle: TextStyle(color: color),
-        prefixIcon: Icon(Icons.search, color: color),
-        filled: true,
-        fillColor: Colors.white12,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: color.withOpacity(0.7)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: color.withOpacity(0.7)),
         ),
       ),
     );
@@ -77,13 +47,27 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
     VoidCallback? onClicked,
   }) {
     final color = Colors.white;
-    final hoverColor = Colors.white70;
 
-    return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
-      hoverColor: hoverColor,
+    return InkWell(
       onTap: onClicked,
+      child: Ink(
+        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF6E48AA), Color(0xFF9D50BB)], // Example gradient colors
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(10), // Add corner radius here
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: color),
+            const SizedBox(width: 20), // Space between icon and text
+            Text(text, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
     );
   }
 
@@ -92,7 +76,7 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
 
     switch (index) {
       case 0:
-      // Navigate to the ResetPassword page
+      // Navigate to the MainPage
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => MainPage(),
         ));
@@ -103,5 +87,4 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
         break;
     }
   }
-
-  }
+}
