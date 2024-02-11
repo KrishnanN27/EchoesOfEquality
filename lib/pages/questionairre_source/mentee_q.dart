@@ -1,4 +1,5 @@
 import 'package:echoes_of_equality/components/my_button.dart';
+import 'package:echoes_of_equality/pages/mentee_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +40,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
 
     await firestore.collection("mentee_Q").doc(userId).set(responses);
 
-
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MenteeMainPage()));
 
   }
 

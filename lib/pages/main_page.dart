@@ -119,27 +119,7 @@ class MainPage extends StatelessWidget {
                 
               ),
 
-                MyButton(
-                  onTap: () async {
-                    // Get the current user's ID
-                    String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
-                    // Get user data
-                    Map<String, dynamic> userData = await AuthService().getUserData(currentUserId);
-
-                    // Pass user data to ChatPage
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatPage(
-                          receiverUserEmail: userData['email'],
-                          receiverUserID: currentUserId,
-                        ),
-                      ),
-                    );
-                  },
-                  buttonText: 'Chat',
-                ),
 
 
               // not a member? register now
