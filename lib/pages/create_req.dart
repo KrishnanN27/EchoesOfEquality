@@ -52,6 +52,10 @@ class _RequestEnterState extends State<RequestEnter> {
     };
     await firestore.collection("requests_for_donation").doc(userId+recipient).set(responses);
     Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Request submitted successfully!'),
+      duration: Duration(seconds: 3),
+    ));
   }
 
   Widget _buildQuestion(String questionText) {

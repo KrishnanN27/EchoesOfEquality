@@ -81,7 +81,7 @@ class _DonateState extends State<Donate> {
 
         await FirebaseFirestore.instance.collection("requests_for_donation").doc(matchId).update({"cost": updatedCost.toString()});
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Donation successful! Remaining amount: $updatedCost')));
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Donation successful! Remaining amount: $updatedCost')));
         fetchMatches(); // Refresh the list to show updated cost
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Document does not exist')));
