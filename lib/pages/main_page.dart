@@ -1,5 +1,6 @@
 
 import 'package:conditional_questions/conditional_questions.dart';
+import 'package:echoes_of_equality/components/navigation_drawer_for_car_loan.dart';
 import 'package:echoes_of_equality/pages/login_page.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
@@ -39,13 +40,12 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => signOut(context),
-            icon: const Icon(Icons.logout),
-          )
-        ],
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
       ),
+
+      endDrawer:  NavigationDrawerForCarLoan(signOut: () => signOut(context)),
+
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: SingleChildScrollView( // Wrap with SingleChildScrollView for scrollable behavior
