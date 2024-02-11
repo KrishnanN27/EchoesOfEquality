@@ -44,7 +44,9 @@ class _MentorResourcesState extends State<MentorResources> {
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
     // Assuming you want to update some status in Firestore when a match is accepted
-    await firestore.collection("Matches_$userId").doc(matchId).update({"isMatch": "accepted"});
+    await firestore.collection("Matches_$userId").doc(matchId).set({"isMatch": "no","oldMatch":"yes"});
+    await firestore.collection("Mentees_$userId").doc(matchId).set({"matchId": matchId});
+    await firestore.collection("Mentors_$matchId").doc(userId).set({"isMatch": userId});
 
     // Additional Firestore updates or logic after accepting a match can go here
 
