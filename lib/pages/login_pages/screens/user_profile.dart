@@ -44,7 +44,7 @@ class _UserProfileState extends State<UserProfile> {
   buildProfileImage() => CircleAvatar(
     radius: profileHeight/2,
     backgroundColor: Colors.deepPurple,
-    backgroundImage: AssetImage("assets/dp.JPG"),
+    backgroundImage: const AssetImage("assets/dp.JPG"),
   );
 
   buildTop() {

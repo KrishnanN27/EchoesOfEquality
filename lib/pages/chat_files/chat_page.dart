@@ -51,13 +51,17 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.receiverUserEmail)),
+      backgroundColor: Colors.grey[300], // Set scaffold background color
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(widget.receiverUserEmail, style: TextStyle(fontFamily: 'Poppins', fontSize: 20)),
+        backgroundColor: Colors.grey[300], // AppBar background color to match scaffold
+        elevation: 0, // Remove shadow
+      ),
       body: Column(
         children: [
-          Expanded(child: _buildMessageList()
-          ),
+          Expanded(child: _buildMessageList()),
           _buildMessageInput(),
-
           const SizedBox(height: 25),
         ],
       ),
@@ -111,16 +115,25 @@ class _ChatPageState extends State<ChatPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Row(
-      children: [
-        Expanded(child: MyTextField(
-          controller: _messageController,
-          hintText: 'Enter message',
-          obscureText: false,
-        ),
-        ),
-        IconButton(onPressed: sendMessage, icon: Icon(Icons.arrow_upward,size: 40,),
-        ),
-      ],
+        children: [
+          Expanded(
+            child: MyTextField(
+              controller: _messageController,
+              hintText: 'Enter message',
+              obscureText: false,
+              // Ensure MyTextField uses Poppins if it doesn't by default
+            ),
+          ),
+          IconButton(
+            onPressed: sendMessage,
+            icon: Icon(
+              Icons.send,
+              size: 40,
+              color: Colors.purple, // Setting the icon color to purple
+            ),
+          ),
+
+        ],
       ),
     );
   }

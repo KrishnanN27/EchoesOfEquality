@@ -22,39 +22,26 @@ class _MyMenteesState extends State<MyMentees> {
     fetchMatches(); // Fetch matches when the widget is initialized
   }
 
-  void fetchMatches() async {
+  Future<List<Map<String, dynamic>>> fetchMatches() async {
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     CollectionReference matchCollection = FirebaseFirestore.instance.collection("Mentees_$userId");
+    List<Map<String, dynamic>> matchDetails = [];
 
     try {
-      print("Fetching mentees collection...");
       QuerySnapshot matchSnapshot = await matchCollection.get();
-
-      List<String> matches = matchSnapshot.docs
-          .map((doc) => doc.id)
-          .toList();
-
-      print("Mentee collection size: ${matches.length}");
-
-      List<Map<String, dynamic>> matchDetails = [];
+      List<String> matches = matchSnapshot.docs.map((doc) => doc.id).toList();
 
       for (String matchId in matches) {
-        print("Fetching details for mentee with ID: $matchId");
         DocumentSnapshot matchDocument = await FirebaseFirestore.instance.collection("mentee_Q").doc(matchId).get();
-        Map<String, dynamic>? matchData = matchDocument.data() as Map<String, dynamic>?; // Nullable map
-        if (matchData != null) { // Check if matchData is not null
-          print("Match details fetched: $matchData");
+        Map<String, dynamic>? matchData = matchDocument.data() as Map<String, dynamic>?;
+        if (matchData != null) {
           matchDetails.add(matchData);
         }
       }
-
-      setState(() {
-        myMatches = matchDetails;
-      });
-      print("Matches fetched successfully.");
     } catch (e) {
       print("Error fetching matches: $e");
     }
+    return matchDetails;
   }
 
   @override
@@ -63,71 +50,81 @@ class _MyMenteesState extends State<MyMentees> {
       appBar: AppBar(
         title: Text(
           'My Mentees',
-          style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontSize: 20),
         ),
+        backgroundColor: Colors.grey[300], // AppBar background color
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      backgroundColor: Colors.grey[300],
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: fetchMatches(),
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+    return Center(child: CircularProgressIndicator());
+    }
+
+    if (snapshot.hasError) {
+    return Center(child: Text("Error loading data"));
+    }
+
+    if (snapshot.data!.isEmpty) {
+    return Center(
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    Image.asset('assets/images/404.png', height: 200, width: 200, fit: BoxFit.cover),
+    SizedBox(height: 8),
+    Text("No new mentees found", style: TextStyle(fontSize: 16, color: Colors.black54, fontFamily: 'Poppins')),
+    ],
+    ),
+    );
+    }
+
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: ListView.builder(
           itemCount: myMatches.length,
           itemBuilder: (BuildContext context, int index) {
-            // Extracting match details
             Map<String, dynamic> matchDetails = myMatches[index];
-
+            String displayName = 'Mentee: ${matchDetails["userId"][0].toUpperCase()}'; // Using first letter of userID
             return Card(
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              elevation: 4.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    title: Text('Mentee ID: ${matchDetails["userId"]}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('LGBTQIA+ Member: ${matchDetails["lgbtqiaPlusMember"]}'),
-                        Text('Assistance Type: ${matchDetails["assistanceType"]}'),
-                        Text('Life Threatening Situation: ${matchDetails["lifeThreateningSituation"]}'),
-                        Text('Issues Description: ${matchDetails["issuesDescription"]}'),
-                        Text('Previous Assistance: ${matchDetails["previousAssistance"]}'),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          // Implement accept functionality
+              margin: EdgeInsets.only(bottom: 16.0),
+              elevation: 2.0,
+              child: ListTile(
+                contentPadding: EdgeInsets.all(16.0),
+                title: Text(
+                  displayName,
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+                subtitle: Text(
+                  'LGBTQIA+ Member: ${matchDetails["lgbtqiaPlusMember"]}\n'
+                      'Assistance Type: ${matchDetails["assistanceType"]}\n'
+                      'Life Threatening Situation: ${matchDetails["lifeThreateningSituation"]}\n'
+                      'Issues Description: ${matchDetails["issuesDescription"]}\n'
+                      'Previous Assistance: ${matchDetails["previousAssistance"]}',
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.chat, color: Colors.purple),
+                  onPressed: () async {
 
-                          // CHAT!!!!!
-                        ;
+                    String CurrentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+                    Map<String, dynamic> userData = await AuthService().getUserData(matchDetails["userId"]);
 
-                          // Get the current user's ID
-                          String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
-                          // Get user data
-                          Map<String, dynamic> userData = await AuthService().getUserData(matchDetails["userId"]);
-
-                          // Pass user data to ChatPage
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                receiverUserEmail: userData['email'],
-                                receiverUserID: matchDetails["userId"],
-                              ),
-                            ),
-                          );
-                        },
-
-                        child: Text('Chat with Mentee'),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                          receiverUserEmail: userData['email'],
+                          receiverUserID: matchDetails["userId"],
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                    );
+                    // Simplified example function call
+                  },
+                ),
               ),
             );
           },
@@ -135,4 +132,6 @@ class _MyMenteesState extends State<MyMentees> {
       ),
     );
   }
+
+
 }
