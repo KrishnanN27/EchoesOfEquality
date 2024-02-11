@@ -84,18 +84,6 @@ class MainPage extends StatelessWidget {
 
                 SizedBox(height: size.height * 0.02), // Responsive spacing
 
-
-              const SizedBox(height: 25),
-
-              // sign in button
-              MyButton(
-                onTap: () {},
-                buttonText: 'Mentor',
-                // Specify the text here
-              ),
-
-              const SizedBox(height: 20),
-
               MyButton(
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MenteeMainPage())),
                 buttonText: 'Mentee', // Use a different text for another instance
