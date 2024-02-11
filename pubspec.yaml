@@ -40,7 +40,6 @@ dependencies:
   shared_preferences: ^2.0.15
   input_slider: ^0.2.0
   lottie: ^2.7.0
-  conditional_questions: '^2.0.0'
   http: ^1.2.0
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4

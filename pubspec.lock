@@ -113,14 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
-  conditional_questions:
-    dependency: "direct main"
-    description:
-      name: conditional_questions
-      sha256: "4f44743d82d5b214a3b9cb27c48da9482833363cf452043090f4442c101f7fd8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   convert:
     dependency: transitive
     description:
