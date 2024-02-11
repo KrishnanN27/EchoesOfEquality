@@ -59,73 +59,57 @@ class _MyMentorsState extends State<MyMentors> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(
           'My Mentors',
           style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
         ),
+        backgroundColor: Colors.grey[300], // Changed AppBar background color to purple
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Adjusted padding to match MyMentees
         child: ListView.builder(
           itemCount: myMatches.length,
           itemBuilder: (BuildContext context, int index) {
-            // Extracting match details
             Map<String, dynamic> matchDetails = myMatches[index];
-
+            // Simplified display name to use the first letter of the mentor's ID
+            String displayName = 'Mentor: ${matchDetails["userId"][0].toUpperCase()}';
             return Card(
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              elevation: 4.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    title: Text('Mentor ID: ${matchDetails["userId"]}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('LGBTQIA+ Member: ${matchDetails["lgbtqiaPlusMember"]}'),
-                        Text('Assistance Type: ${matchDetails["assistanceType"]}'),
-                        Text('Background: ${matchDetails["issuesDescription"]}'),
-                        Text('Past Experience: ${matchDetails["previousAssistance"]}'),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          // Implement accept functionality
-
-                          // CHAT!!!!!
-                          ;
-
-                          // Get the current user's ID
-                          String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
-
-                          // Get user data
-                          Map<String, dynamic> userData = await AuthService().getUserData(matchDetails["userId"]);
-
-                          // Pass user data to ChatPage
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                receiverUserEmail: userData['email'],
-                                receiverUserID: matchDetails["userId"],
-                              ),
-                            ),
-                          );
-                        },
-                        child: Text('Chat with Mentor'),
+              margin: EdgeInsets.only(bottom: 8.0),
+              elevation: 2.0,
+              child: ListTile(
+                contentPadding: EdgeInsets.all(16.0),
+                title: Text(
+                  displayName,
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+                subtitle: Text(
+                  'LGBTQIA+ Member: ${matchDetails["lgbtqiaPlusMember"]}\n'
+                      'Assistance Type: ${matchDetails["assistanceType"]}\n'
+                      'Background: ${matchDetails["issuesDescription"]}\n'
+                      'Past Experience: ${matchDetails["previousAssistance"]}',
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.chat, color: Colors.purple),
+                  onPressed: () async {
+                    // Implement chat functionality
+                    String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+                    Map<String, dynamic> userData = await AuthService().getUserData(matchDetails["userId"]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                          receiverUserEmail: userData['email'],
+                          receiverUserID: matchDetails["userId"],
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
             );
           },

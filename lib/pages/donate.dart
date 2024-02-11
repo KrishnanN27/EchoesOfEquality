@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +11,7 @@ class Donate extends StatefulWidget {
 }
 
 class _DonateState extends State<Donate> {
+  late ConfettiController _confettiController;
   List<Map<String, dynamic>> myMatches = [];
   Map<String, TextEditingController> _controllers = {};
   List<String> documentIds = []; // List to store document IDs
@@ -17,11 +19,15 @@ class _DonateState extends State<Donate> {
   @override
   void initState() {
     super.initState();
+    _confettiController = ConfettiController(duration: const Duration(seconds: 5));
     fetchMatches();
+
   }
 
   @override
   void dispose() {
+    _confettiController.dispose();
+    _controllers.forEach((_, controller) => controller.dispose());
     _controllers.forEach((key, value) {
       value.dispose();
     });
@@ -59,6 +65,7 @@ class _DonateState extends State<Donate> {
     final int donateAmount = int.tryParse(donationAmount) ?? 0;
     if (donateAmount <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid donation amount')));
+
       return;
     }
 
@@ -82,70 +89,84 @@ class _DonateState extends State<Donate> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error processing donation: $e')));
     }
+    _confettiController.play();
   }
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Donate',
-          style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
-        ),
+        title: Text('Donate', style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: myMatches.length,
-          itemBuilder: (BuildContext context, int index) {
-            Map<String, dynamic> matchDetails = myMatches[index];
-            String documentId = documentIds[index]; // Retrieve document ID
-            TextEditingController? controller = _controllers[documentId];
-
-            return Card(
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              elevation: 4.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    title: Text('Title: ${matchDetails["title"]}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Description: ${matchDetails["description"]}'),
-                        Text('Remaining Amount: ${matchDetails["cost"]}'),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (controller != null) // Check for null controller
-                          Expanded(
-                            child: TextField(
-                              controller: controller,
-                              decoration: InputDecoration(
-                                hintText: 'Enter donation amount',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                        ElevatedButton(
-                          onPressed: () => donate(documentId, controller?.text ?? '0'),
-                          child: Text('Donate'),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: myMatches.length,
+              itemBuilder: (context, index) {
+                final matchDetails = myMatches[index];
+                final documentId = documentIds[index];
+                final controller = _controllers[documentId] ?? TextEditingController();
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  elevation: 4.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        title: Text('Title: ${matchDetails["title"]}', style: TextStyle(fontFamily: 'Poppins')),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Description: ${matchDetails["description"]}', style: TextStyle(fontFamily: 'Poppins')),
+                            Text('Remaining Amount: ${matchDetails["cost"]}', style: TextStyle(fontFamily: 'Poppins')),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: controller,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter amount',
+                                  hintStyle: TextStyle(fontFamily: 'Poppins', color: Theme.of(context).hintColor),
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(fontFamily: 'Poppins'),
+                              ),
+                            ),
+                            SizedBox(width: 20), // Give some space between TextField and Button
+                            ElevatedButton(
+                              onPressed: () => donate(documentId, controller.text),
+                              child: Text('Donate', style: TextStyle(fontFamily: 'Poppins')),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
+            ),
+          ),
+        ],
       ),
     );
   }

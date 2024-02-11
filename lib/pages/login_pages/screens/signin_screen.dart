@@ -63,6 +63,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   logoWidget("assets/images/lgbt.png"),
                   const SizedBox(height: 20),
+                  Text(
+                    "Echoes of Equality",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'Poppins', // Ensure you have this font in your pubspec.yaml
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   reusableTextField("Enter Email Id", Icons.person_outline, false, _emailTextController),
                   const SizedBox(height: 20),
                   reusableTextField("Enter Password", Icons.lock_outline, true, _passwordTextController),
@@ -71,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   forgetPassword(context),
                   signUpOption(),
                   SizedBox(height: 20),
-                  firebaseUIButton(context, "DONATE", () {
+                  firebaseUIButton(context, "Donate", () {
                     // Donation action or navigation
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const Donate()));
                   }),

@@ -63,40 +63,37 @@ class _MyRequestsState extends State<MyRequests> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My Mentees',
+          'My Requests',
           style: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
+        padding: const EdgeInsets.all(32.0),
+        child: myMatches.isNotEmpty
+            ? ListView.builder(
           itemCount: myMatches.length,
           itemBuilder: (BuildContext context, int index) {
-            // Extracting match details
             Map<String, dynamic> matchDetails = myMatches[index];
 
             return Card(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               elevation: 4.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    title: Text('REQUEST: ${matchDetails["title"]}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Mentor: ${matchDetails["mentorId"]}'),
-                        Text('Remaining Amount: ${matchDetails["cost"]}'),
-                       ],
-                    ),
-                  ),
-                  
-                ],
+              child: ListTile(
+                title: Text('REQUEST: ${matchDetails["title"]}', style: TextStyle(fontFamily: 'Poppins')),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Mentor: ${matchDetails["mentorId"]}', style: TextStyle(fontFamily: 'Poppins')),
+                    Text('Remaining Amount: ${matchDetails["cost"]}', style: TextStyle(fontFamily: 'Poppins')),
+                  ],
+                ),
               ),
             );
           },
+        )
+            : Center(
+          child: Text("No requests found", style: TextStyle(fontSize: 16, color: Colors.black54, fontFamily: 'Poppins')),
         ),
       ),
     );
