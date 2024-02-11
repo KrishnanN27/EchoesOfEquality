@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
 
-import '../questionairre_source/mentee_q.dart'; // for testing purpose
+import '../questionairre_source/mentee_q.dart';
 
 class MentorMainPage extends StatelessWidget {
   const MentorMainPage({super.key});
