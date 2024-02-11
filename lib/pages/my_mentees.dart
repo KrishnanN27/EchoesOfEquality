@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'chat_files/chat_page.dart';
+import 'login_pages/auth_service.dart';
 import 'main_page.dart';
 
 class MyMentees extends StatefulWidget {
@@ -97,12 +99,30 @@ class _MyMenteesState extends State<MyMentees> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // Implement accept functionality
 
                           // CHAT!!!!!
+                        ;
 
+                          // Get the current user's ID
+                          String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
+                          // Get user data
+                          Map<String, dynamic> userData = await AuthService().getUserData(matchDetails["userId"]);
+
+                          // Pass user data to ChatPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                receiverUserEmail: userData['email'],
+                                receiverUserID: matchDetails["userId"],
+                              ),
+                            ),
+                          );
                         },
+
                         child: Text('Chat with Mentee'),
                       ),
                     ),
