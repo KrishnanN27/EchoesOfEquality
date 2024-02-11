@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -38,7 +39,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
 
   void _submit() async {
     final responses = {
-      
+
       'lgbtqiaPlusMember': _lgbtqiaPlusMember,
       'assistanceType': _assistanceType,
       'previousAssistance': _previousAssistance,
@@ -49,7 +50,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     //print('Collected Responses: $responses');
     var firestore = FirebaseFirestore.instance;
     //await firestore.collection('mentee_Q').add(responses);
-    await firestore.collection('mentee_Q').doc('mentee_Q1').set(responses);
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    await firestore.collection("mentee_Q").doc(userId).set(responses);
 
 
 
