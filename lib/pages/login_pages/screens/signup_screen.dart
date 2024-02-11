@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
@@ -23,10 +24,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _emailTextController.text,
         _passwordTextController.text,
       );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("User Created")));
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignInScreen()));
       // After successful signup, navigate or show success message
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
+
+
   }
 
   @override
@@ -34,9 +39,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
+
           "Sign Up",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: "Poppins"),
         ),
@@ -68,18 +75,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 20),
                   reusableTextField("Enter Password", Icons.lock_outline, true, _passwordTextController, fontFamily: "Raleway"),
                   SizedBox(height: 20),
-                  Text("What do you want to do?", style: TextStyle(color: Colors.white.withOpacity(0.9), fontFamily: "Inter")),
-                  SizedBox(height: 20),
-                  customDropdownButton(
-                    "Select an option",
-                    ['Mentor', 'Mentee'],
-                    _selectedRole,
-                        (String? value) {
-                      setState(() {
-                        _selectedRole = value;
-                      });
-                    },
-                  ),
+                  // Text("What do you want to do?", style: TextStyle(color: Colors.white.withOpacity(0.9), fontFamily: "Inter")),
+                  // SizedBox(height: 20),
+                  // customDropdownButton(
+                  //   "Select an option",
+                  //   ['Mentor', 'Mentee'],
+                  //   _selectedRole,
+                  //       (String? value) {
+                  //     setState(() {
+                  //       _selectedRole = value;
+                  //     });
+                  //   },
+                  // ),
 
                   SizedBox(height: 40),
                   firebaseUIButton(context, "Sign Up", signUp, fontFamily: "Poppins"),
