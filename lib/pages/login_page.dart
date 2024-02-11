@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echoes_of_equality/pages/main_page.dart';
+import 'package:echoes_of_equality/pages/mentee_main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
 import 'package:echoes_of_equality/components/my_textfield.dart';
 import 'package:echoes_of_equality/components/square_tile.dart';
+
+import 'Mentor_Resources/Mentor_main.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -15,8 +20,19 @@ class LoginPage extends StatelessWidget {
   // sign user in method
 // Inside your widget class
 
-  void signUserIn(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+  Future<void> signUserIn(BuildContext context) async {
+    var firestore = FirebaseFirestore.instance;
+    String usr = FirebaseAuth.instance.currentUser?.uid ?? '';
+    DocumentSnapshot roleFlagSnapshot = await FirebaseFirestore.instance.collection('Role Flag').doc(usr).get();
+    if (roleFlagSnapshot.exists && (roleFlagSnapshot.data() as Map<String, dynamic>)['Mentor'] == true) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
+    }
+    else if (roleFlagSnapshot.exists && (roleFlagSnapshot.data() as Map<String, dynamic>)['Mentor'] == false) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MenteeMainPage()));
+    }
+    else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+    }
   }
 
 

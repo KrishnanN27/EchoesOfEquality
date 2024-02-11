@@ -23,8 +23,11 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   }
 
   void _submit() async {
+    var firestore = FirebaseFirestore.instance;
+    //await firestore.collection('mentee_Q').add(responses);
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     final responses = {
-
+      'userId': userId,
       'lgbtqiaPlusMember': _lgbtqiaPlusMember,
       'assistanceType': _assistanceType,
       'previousAssistance': _previousAssistance,
@@ -33,9 +36,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     };
     // Here, you would typically send the collected data to your backend or Firebase.
     //print('Collected Responses: $responses');
-    var firestore = FirebaseFirestore.instance;
-    //await firestore.collection('mentee_Q').add(responses);
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     await firestore.collection("mentee_Q").doc(userId).set(responses);
 
 
