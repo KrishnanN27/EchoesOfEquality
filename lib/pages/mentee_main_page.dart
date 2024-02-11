@@ -1,4 +1,5 @@
 import 'package:echoes_of_equality/pages/mentor_resources.dart';
+import 'package:echoes_of_equality/pages/my_Mentors.dart';
 import 'package:echoes_of_equality/pages/questionairre_source/mentee_q.dart';
 import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
@@ -41,7 +42,7 @@ class MenteeMainPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MentorResources(),
+                    builder: (context) => MyMentors(),
                   ),
                 );
 
