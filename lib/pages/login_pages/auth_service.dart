@@ -1,9 +1,5 @@
 
-<<<<<<< HEAD
-=======
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conditional_questions/conditional_questions.dart';
->>>>>>> 7a6c95602de7a10bc26cf13400f67e378bf38a13
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
