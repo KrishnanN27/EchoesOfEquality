@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/mentor_resources.dart';
 import 'package:echoes_of_equality/pages/questionairre_source/mentee_q.dart';
 import 'package:flutter/material.dart';
 import 'package:echoes_of_equality/components/my_button.dart';
@@ -35,7 +36,18 @@ class MenteeMainPage extends StatelessWidget {
               MyButton(onTap: () =>    Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionnaireScreen())),
               buttonText: "Find a Mentor"),
               const SizedBox(height: 20),
-              MyButton(onTap: () {}, buttonText: "My Mentors"),
+              MyButton(onTap: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MentorResources(),
+                  ),
+                );
+
+              }
+
+                  , buttonText: "My Mentors"),
               const SizedBox(height: 20),
               MyButton(onTap: () {}, buttonText: "FILL ME UP"),
             ],

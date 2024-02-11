@@ -142,6 +142,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
               child: MyButton(
                 buttonText: "Submit",
                 onTap: () async {
+                  _submit();
                   // Add your code here
                 },
               ),
