@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/chat_files/chat_page.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/reset_password.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/user_profile.dart';
 import 'package:echoes_of_equality/pages/main_page.dart';
@@ -43,6 +44,26 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
                     text: 'About Creators',
                     icon: Icons.people_sharp,
                     onClicked: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfile())),
+                  ),
+                  const SizedBox(height: 24),
+                  buildMenuItem(
+                    text: 'Chat',
+                    icon: Icons.chat,
+                    onClicked: () {
+                      // Replace 'dummyEmail' and 'dummyUserID' with the actual email and user ID
+                      String receiverUserEmail = 'dummyEmail';
+                      String receiverUserID = 'dummyUserID';
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatPage(
+                            receiverUserEmail: receiverUserEmail,
+                            receiverUserID: receiverUserID,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -43,6 +43,22 @@ class AuthService extends ChangeNotifier{
 
   }
 
+
+  Future<Map<String, dynamic>> getUserData(String uid) async {
+    try {
+      DocumentSnapshot userSnapshot =
+      await _firestore.collection('users').doc(uid).get();
+
+      if (userSnapshot.exists) {
+        return userSnapshot.data() as Map<String, dynamic>;
+      } else {
+        throw Exception("User not found");
+      }
+    } catch (e) {
+      throw Exception("Error fetching user data: $e");
+    }
+  }
+
 //   SignOut
   Future<void> signOut() async{
     return await FirebaseAuth.instance.signOut();

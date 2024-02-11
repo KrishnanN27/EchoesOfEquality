@@ -1,5 +1,6 @@
 
 import 'package:echoes_of_equality/components/navigation_drawer_for_car_loan.dart';
+import 'package:echoes_of_equality/pages/chat_files/chat_page.dart';
 import 'package:echoes_of_equality/pages/login_pages/auth_service.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/signin_screen.dart';
 import 'package:echoes_of_equality/pages/mentee_main_page.dart';
@@ -107,9 +108,31 @@ class MainPage extends StatelessWidget {
                 },
 
                 buttonText: 'Mentee', // Use a different text for another instance
+                
+                
               ),
 
+                MyButton(
+                  onTap: () async {
+                    // Get the current user's ID
+                    String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
+                    // Get user data
+                    Map<String, dynamic> userData = await AuthService().getUserData(currentUserId);
+
+                    // Pass user data to ChatPage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                          receiverUserEmail: userData['email'],
+                          receiverUserID: currentUserId,
+                        ),
+                      ),
+                    );
+                  },
+                  buttonText: 'Chat',
+                ),
 
 
               // not a member? register now
