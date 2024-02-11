@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/create_req.dart';
 import 'package:echoes_of_equality/pages/mentor_resources.dart';
 import 'package:echoes_of_equality/pages/my_mentees.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class MentorMainPage extends StatelessWidget {
 
                 buttonText: "My Mentees"),
             const SizedBox(height: 20),
-            MyButton(onTap: () {}, buttonText: "Mentee Requests"),
+            MyButton(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RequestEnter())), buttonText: "Create Request"),
             const SizedBox(height: 20),
             MyButton(onTap: () {
             //   navigate to mentor resources
