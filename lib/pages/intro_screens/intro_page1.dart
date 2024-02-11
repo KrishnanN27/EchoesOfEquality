@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroPage1 extends StatelessWidget {
@@ -17,7 +16,7 @@ class IntroPage1 extends StatelessWidget {
               "Echoes of Equality",
               style: TextStyle(
                 fontSize: 30,
-                fontFamily: 'Inter', // Using Raleway for the app name
+                fontFamily: 'Inter', // Adjusted for the app name
               ),
             ),
             SizedBox(
@@ -28,23 +27,22 @@ class IntroPage1 extends StatelessWidget {
               ),
             ),
             Text(
-              "Welcome",
+              "Connect with Mentors",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins', // Keeping Poppins for consistency
+                fontFamily: 'Poppins', // Using Poppins for title
               ),
             ),
-            SizedBox(height: 15,),
+            SizedBox(height: 15),
             Text(
-              "One Step solution for your financial calculators and loan manager to"
-                  " track your loan progress",
+              "Find and connect with experienced mentors to guide you through your journey. A supportive community awaits.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
                 color: Colors.black54,
-                fontFamily: 'Inter', // Using Inter for body text for readability
+                fontFamily: 'Inter', // Using Inter for body text
               ),
             ),
           ],

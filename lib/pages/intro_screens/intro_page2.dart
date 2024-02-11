@@ -13,14 +13,14 @@ class IntroPage2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "We love everyone",
+              "Engage in Meaningful Conversations",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 28,
-                fontFamily: 'Poppins', // Consistent with subheadings/important messages
+                fontFamily: 'Poppins', // Consistent with subheadings
               ),
             ),
-            SizedBox(height: 45,),
+            SizedBox(height: 20),
             SizedBox(
               height: 300,
               width: 300,
@@ -28,26 +28,24 @@ class IntroPage2 extends StatelessWidget {
                 child: Lottie.asset('assets/animations/i1.json'),
               ),
             ),
-            SizedBox(height: 45,),
+            SizedBox(height: 20),
             Text(
-              "Equally!",
+              "Support and Funding",
               style: TextStyle(
-                fontSize: 30,
-                color: Colors.black54,
-                fontFamily: 'Poppins', // Using Poppins for emphasis on "Equally!"
+                fontSize: 25,
+                color: Colors.white,
+                fontFamily: 'Poppins', // Emphasizing the funding aspect
               ),
             ),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.home),
-                SizedBox(width: 15,),
-                Icon(Icons.person),
-                SizedBox(width: 15,),
-                Icon(Icons.car_crash_rounded),
-              ],
+            SizedBox(height: 15),
+            Text(
+              "Seek support for your needs or contribute to someone's journey. Every donation brings us closer to equality and acceptance.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white70,
+                fontFamily: 'Inter', // Ensuring readability
+              ),
             ),
           ],
         ),
