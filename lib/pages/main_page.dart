@@ -40,11 +40,10 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
+        centerTitle:
+        true,
       ),
-
-      endDrawer:  NavigationDrawerForCarLoan(signOut: () => signOut(context)),
+        endDrawer: NavigationDrawerForCarLoan(signOut: () => signOut(context)),
 
       backgroundColor: Colors.grey[300],
       body: SafeArea(
