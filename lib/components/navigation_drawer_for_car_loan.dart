@@ -1,4 +1,6 @@
 import 'package:echoes_of_equality/pages/chat_files/chat_page.dart';
+import 'package:echoes_of_equality/pages/donate.dart';
+import 'package:echoes_of_equality/pages/login_pages/screens/about_creators.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/reset_password.dart';
 import 'package:echoes_of_equality/pages/login_pages/screens/user_profile.dart';
 import 'package:echoes_of_equality/pages/main_page.dart';
@@ -22,33 +24,15 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 34),
-                  buildMenuItem(
-                    text: 'Home',
-                    icon: Icons.home,
-                    onClicked: () => selectedItem(context, 0),
-                  ),
-                  SizedBox(height: 24),
-                  Divider(color: Colors.white70, thickness: 2),
+
+
+
+
 
                   const SizedBox(height: 24),
                   buildMenuItem(
-                    text: 'Logout',
-                    icon: Icons.logout_outlined,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
-
-                  Divider(color: Colors.white70, thickness: 2),
-
-                  const SizedBox(height: 24),
-                  buildMenuItem(
-                    text: 'About Creators',
-                    icon: Icons.people_sharp,
-                    onClicked: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfile())),
-                  ),
-                  const SizedBox(height: 24),
-                  buildMenuItem(
-                    text: 'Chat',
-                    icon: Icons.chat,
+                    text: 'Donate',
+                    icon: Icons.attach_money_rounded,
                     onClicked: () {
                       // Replace 'dummyEmail' and 'dummyUserID' with the actual email and user ID
                       String receiverUserEmail = 'dummyEmail';
@@ -57,13 +41,25 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatPage(
-                            receiverUserEmail: receiverUserEmail,
-                            receiverUserID: receiverUserID,
-                          ),
+                          builder: (context) => Donate()
                         ),
                       );
                     },
+                  ),
+                  const SizedBox(height: 24),
+                  buildMenuItem(
+                    text: 'Logout',
+                    icon: Icons.logout_outlined,
+                    onClicked: () => selectedItem(context, 1),
+                  ),
+                  SizedBox(height: 24),
+                  Divider(color: Colors.white70, thickness: 2),
+
+                  const SizedBox(height: 24),
+                  buildMenuItem(
+                    text: 'About Creators',
+                    icon: Icons.people_sharp,
+                    onClicked: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutCreators())),
                   ),
                 ],
               ),

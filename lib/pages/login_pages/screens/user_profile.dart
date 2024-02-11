@@ -22,14 +22,14 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        backgroundColor: HexColor('C4BAE0'),
+      backgroundColor: HexColor('C4BAE0'),
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
           buildTop(),
           buildContent(),
         ],
-      )
+      ),
     );
   }
 
