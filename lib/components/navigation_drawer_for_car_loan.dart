@@ -1,4 +1,5 @@
 import 'package:echoes_of_equality/pages/login_pages/screens/reset_password.dart';
+import 'package:echoes_of_equality/pages/login_pages/screens/user_profile.dart';
 import 'package:echoes_of_equality/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +26,23 @@ class NavigationDrawerForCarLoan extends StatelessWidget {
                     icon: Icons.home,
                     onClicked: () => selectedItem(context, 0),
                   ),
+                  SizedBox(height: 24),
                   Divider(color: Colors.white70, thickness: 2),
+
                   const SizedBox(height: 24),
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout_outlined,
                     onClicked: () => selectedItem(context, 1),
+                  ),
+
+                  Divider(color: Colors.white70, thickness: 2),
+
+                  const SizedBox(height: 24),
+                  buildMenuItem(
+                    text: 'About Creators',
+                    icon: Icons.people_sharp,
+                    onClicked: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfile())),
                   ),
                 ],
               ),

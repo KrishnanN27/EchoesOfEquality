@@ -52,6 +52,7 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
+        automaticallyImplyLeading: false,
       ),
 
         endDrawer: NavigationDrawerForCarLoan(signOut: () => signOut(context)),

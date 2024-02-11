@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class UserProfile extends StatefulWidget {
@@ -34,7 +35,7 @@ class _UserProfileState extends State<UserProfile> {
 
   buildCoverImage() => Container(
     color: Colors.deepPurple,
-    child: Image.asset('assets/cover.jpg',
+    child: Image.asset('assets/images/lgbt.jpg',
     width: double.infinity,
     height: coverHeight,
     fit: BoxFit.cover,),
