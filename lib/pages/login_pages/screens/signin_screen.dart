@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/donate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,6 @@ import '../../main_page.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'signup_screen.dart';
 import 'reset_password.dart';
-
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -31,18 +31,12 @@ class _SignInScreenState extends State<SignInScreen> {
         errorMessage = "No user found for that email.";
       } else if (e.code == 'wrong-password') {
         errorMessage = "Wrong password provided for that user.";
-      } // You can add more conditions based on FirebaseAuthException codes.
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage)));
-    } catch (e) {
-      String errorMessage = "Failed to sign in: ${e.toString()}";
-      // Check for a channel error specifically, and adjust the message accordingly
-      if (e.toString().contains("channel-error")) { // Replace "channel-error" with the specific error identifier you're checking for
-        errorMessage = "Please type valid input and output credentials.";
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage)));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to sign in: ${e.toString()}")));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.2, 20, 20),
             child: Center(
               child: Column(
                 children: [
@@ -76,7 +70,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   firebaseUIButton(context, "Sign In", () => signIn()),
                   forgetPassword(context),
                   signUpOption(),
-
+                  SizedBox(height: 20),
+                  firebaseUIButton(context, "DONATE", () {
+                    // Donation action or navigation
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Donate()));
+                  }),
                 ],
               ),
             ),
@@ -86,16 +84,15 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-
   Row signUpOption() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?", style: TextStyle(color: Colors.white70, fontFamily: "Inter")),
+        const Text("Don't have an account?", style: TextStyle(color: Colors.white70)),
         GestureDetector(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignUpScreen())),
-          child: const Text(" Sign Up", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Inter")),
-        )
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen())),
+          child: const Text(" Sign Up", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
       ],
     );
   }
@@ -104,7 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Container(
       alignment: Alignment.bottomRight,
       child: TextButton(
-        child: const Text("Forgot Password?", style: TextStyle(color: Colors.white70, fontFamily: "Inter")),
+        child: const Text("Forgot Password?", style: TextStyle(color: Colors.white70)),
         onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPassword())),
       ),
     );
