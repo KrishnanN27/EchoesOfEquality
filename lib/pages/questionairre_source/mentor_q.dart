@@ -19,12 +19,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 //   }
 // }
 
-class QuestionnaireScreen extends StatefulWidget {
+class QuestionnaireScreenMentor extends StatefulWidget {
   @override
   _QuestionnaireScreenState createState() => _QuestionnaireScreenState();
 }
 
-class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
+class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
   String _lgbtqiaPlusMember = '';
   String _assistanceType = '';
   String _previousAssistance = '';
@@ -51,8 +51,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     var firestore = FirebaseFirestore.instance;
     //await firestore.collection('mentee_Q').add(responses);
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    await firestore.collection("mentee_Q").doc(userId).set(responses);
-
+    await firestore.collection("mentor_Q").doc(userId).set(responses);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionnaireScreenMentor()));
 
 
   }
@@ -100,11 +100,11 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               ),
             ),
-            _buildQuestion("2. What kind of assistance are you seeking?"),
+            _buildQuestion("2. What kind of assistance can you provide?"),
             DropdownButtonFormField<String>(
               value: _assistanceType.isEmpty ? null : _assistanceType,
               onChanged: (value) => setState(() => _assistanceType = value!),
-              items: ["Legal", "Health", "Psychological", "Other"]
+              items: ["Legal", "Health", "Psychological", "General"]
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -116,11 +116,11 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               ),
             ),
-            _buildQuestion("3. Have you previously sought assistance for the issues you're facing?"),
+            _buildQuestion("3. How many years have you provided assistance for LGBTQIA+?"),
             DropdownButtonFormField<String>(
               value: _previousAssistance.isEmpty ? null : _previousAssistance,
               onChanged: (value) => setState(() => _previousAssistance = value!),
-              items: ["Yes", "No"].map<DropdownMenuItem<String>>((String value) {
+              items: ["0-5 years", "5-10 years", "10+ years "].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -131,7 +131,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               ),
             ),
-            _buildQuestion("4. Please briefly describe the issues you're facing."),
+            _buildQuestion("4. Please tell about yourself."),
             TextFormField(
               controller: _issuesDescriptionController,
               maxLines: 3,
@@ -140,11 +140,11 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 hintText: "Enter your description here",
               ),
             ),
-            _buildQuestion("5. Are you in a life-threatening situation?"),
+            _buildQuestion("5. How many hours per week can you dedicate to our cause?"),
             DropdownButtonFormField<String>(
               value: _lifeThreateningSituation.isEmpty ? null : _lifeThreateningSituation,
               onChanged: (value) => setState(() => _lifeThreateningSituation = value!),
-              items: ["Yes", "No"].map<DropdownMenuItem<String>>((String value) {
+              items: ["0-5 hours", "5-10 hours", "10-15 hours "].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
