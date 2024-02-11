@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:echoes_of_equality/components/my_button.dart';
+=======
+import 'package:echoes_of_equality/pages/Mentor_Resources/Mentor_main.dart';
+>>>>>>> 7a6c95602de7a10bc26cf13400f67e378bf38a13
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +25,29 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
     super.dispose();
   }
 
+<<<<<<< HEAD
+=======
+  void _submit() async {
+    final responses = {
+
+      'lgbtqiaPlusMember': _lgbtqiaPlusMember,
+      'assistanceType': _assistanceType,
+      'previousAssistance': _previousAssistance,
+      'issuesDescription': _issuesDescriptionController.text,
+      'lifeThreateningSituation': _lifeThreateningSituation,
+    };
+    // Here, you would typically send the collected data to your backend or Firebase.
+    //print('Collected Responses: $responses');
+    var firestore = FirebaseFirestore.instance;
+    //await firestore.collection('mentee_Q').add(responses);
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    await firestore.collection("mentor_Q").doc(userId).set(responses);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
+
+
+  }
+
+>>>>>>> 7a6c95602de7a10bc26cf13400f67e378bf38a13
   Widget _buildQuestion(String questionText) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
