@@ -1,3 +1,4 @@
+import 'package:echoes_of_equality/pages/Mentor_Resources/Mentor_main.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,7 +53,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreenMentor> {
     //await firestore.collection('mentee_Q').add(responses);
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     await firestore.collection("mentor_Q").doc(userId).set(responses);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionnaireScreenMentor()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MentorMainPage()));
 
 
   }
